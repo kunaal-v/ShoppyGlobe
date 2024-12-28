@@ -51,7 +51,6 @@ function CartProduct(props)
             <span className="Quantity">
             {cartItems.length>0?item[0].quantity:0}
             </span>
-            
             <button className="plus_btn" onClick={()=>handleAdd(product)}>+</button>
         </div>
     </div>

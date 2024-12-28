@@ -4,7 +4,6 @@ Reviews.propTypes={
 };
 function Reviews(props)
 {
-    
     const review=props.data
     const isoTimestamp = review.date;
     // This is used to convert the ISO timestamp to date

@@ -47,7 +47,6 @@ function Search()
     {
     return <h1>Loading......</h1>
     }
-
     return(<>
     
     <div className="Search">

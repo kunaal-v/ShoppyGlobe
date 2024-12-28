@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 Product.propTypes={
     item: PropTypes.object

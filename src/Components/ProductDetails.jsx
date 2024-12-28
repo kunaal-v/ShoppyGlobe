@@ -28,7 +28,6 @@ function ProductDetails()
     {
         dispatch(AddToCart(item));
     }
-    
     if(err)
     {
     <Error/>

@@ -25,7 +25,7 @@ function Cart()
         <CartProduct item={data}/>
     </li>)}
         <div className="clearCart">
-    <button onClick={handleClearCart} className="AddToCartBtn">Clear Cart</button>
+        <button onClick={handleClearCart} className="AddToCartBtn">Clear Cart</button>
 
         </div>
     </>)

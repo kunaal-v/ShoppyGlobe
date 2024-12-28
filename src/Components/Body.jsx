@@ -51,7 +51,6 @@ function Body()
         </li>
         ))}
         </div>
-        
     </>)
 }
 export default Body

@@ -1,5 +1,4 @@
 import { useRouteError } from "react-router-dom"
-
 function Error()
 {
     // This component is used to display the error page 
