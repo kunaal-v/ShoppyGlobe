@@ -4,8 +4,10 @@ Reviews.propTypes={
 };
 function Reviews(props)
 {
+    
     const review=props.data
     const isoTimestamp = review.date;
+    // This is used to convert the ISO timestamp to date
     const date = new Date(isoTimestamp).toLocaleDateString();
     var rating="";
     for(let i=0;i<review.rating;i++)

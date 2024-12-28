@@ -10,13 +10,17 @@ import { AddToCart } from "../utils/CartSlice";
 
 function Body()
 {
+    // This component is used to display the products
     const dispatch=useDispatch();
+    // This function is used to add the product to the cart
     function handleCart(item)
     {
         dispatch(AddToCart(item));
     }  
+    // This useFetch is used to fetch the products from the API
     const {data,err,loading}=useFetch('https://dummyjson.com/products');
     const [products,setProducts]=useState([]);
+    // This useEffect is used to set the products based on the data received
     useEffect(()=>{
         if(data)
         {
@@ -32,8 +36,8 @@ function Body()
     {
     return <div>Loading......</div>
     }
-
     return (<>
+    {/* This is used to display the products */}
         <div className='products'>
         {products.map((product)=>(
             <li key={product.id}>

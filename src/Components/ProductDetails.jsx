@@ -8,12 +8,14 @@ import { AddToCart } from "../utils/CartSlice";
 
 function ProductDetails()
 {
+    // This component is used to display the product details 
     const params=useParams();
     const dispatch= useDispatch();
     var products=useRef([]);
-    
+    // THis useFetch is used to fetch the products from the API
     const {data,err,loading}=useFetch("https://dummyjson.com/products");
     useMemo(()=>{
+        // If the data is present then filter the products based on the id
         if(data)
         {
             const newData=data.products;
@@ -21,6 +23,7 @@ function ProductDetails()
             products.current=item;
         }
     },[data,params.id])
+    // This function is used to add the product to the cart
     function handleAdd(item)
     {
         dispatch(AddToCart(item));
@@ -37,6 +40,7 @@ function ProductDetails()
     }
     return (<>
         {
+            // If the data is present then display the product details
             products.current.map((product)=>
             <li key={product.id} className="Product_Details">
                     <div className="ProductDetails">
@@ -62,6 +66,7 @@ function ProductDetails()
                     </div>
                     <div className="Reviews">
                         <span>REVIEWS</span>
+                        {/* This map function is used to show all the reviews by rendering Reviews component */}
                         {product.reviews.map((review,index)=>
                             (<div key={index}>
                                 <Reviews data={review}/> </div>)
