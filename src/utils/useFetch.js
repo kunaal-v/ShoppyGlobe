@@ -8,7 +8,14 @@ function useFetch(url)
     useEffect(()=>{
         const fetchData= async()=>{
             try{
-                const response = await fetch(url);
+                const response = await fetch(url,{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json', 
+                    }
+                }
+                );
+                console.log(response);
                 const result= await response.json();
                 setData(result);
             }

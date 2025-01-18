@@ -1,9 +1,22 @@
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux";
+import { useState,useEffect } from "react";
 function Header()
 {
     // This component is used to display the header of the application
-    const cartItems=useSelector(store=>store.cart.items);
+    const [cartItems,setCartItems]=useState([]);
+    const accessToken=localStorage.getItem("accessToken");
+        useEffect(() => {
+            fetch('http://localhost:5861/api/cartProducts', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                authurization: `JWT ${accessToken}`,
+              },
+            }).then((response) => response.json())
+            .then((data) => {
+                setCartItems(data);
+                })
+          },[]);
     return(
         <>
             <div className="Header">

@@ -208,6 +208,14 @@ a {
   flex-direction: column;
   gap: 5px;
 }
+.registerBtn{
+  background-color: rgb(187, 16, 16);
+  padding: 5px 10px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+}
 .AddToCartBtn{
   background-color: rgb(187, 16, 16);
   padding: 5px 10px;
@@ -263,4 +271,54 @@ a {
   .homeBtn{
     margin-left: 5px;
   }
+}
+
+.registerBackground{
+  height: 100vh;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.formBackground{
+ background-color: white; 
+ padding: 20px;
+ display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 10px;
+}
+.left_section{
+  background-color: rgb(187, 16, 16);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color:white;
+  height: 100vh;
+  width: 300px;
+  gap: 20px;
+  padding: 50px;
+}
+.logo{
+  border-radius: 50%;
+}
+.registerLayout{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  padding: 150px;
+}
+.registerInput{
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 15px;
+  border:1px solid gray;
+}
+.registerLabel{
+  font-size: 18px;
+}
+.registerCredentials{
+  display: flex;
+  flex-direction: column;
+   width: 500px;
 }

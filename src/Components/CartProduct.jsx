@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AddToCart,RemoveFromCart } from "../utils/CartSlice";
 import PropTypes from 'prop-types';
 CartProduct.propTypes={
     item: PropTypes.object
@@ -12,24 +10,36 @@ function CartProduct(props)
     const price=product.price;
     const discount=product.discountPercentage;
     const discountPrice=(price-(price*discount/100))
-    // This is used to dispatch the action
-    const dispatch=useDispatch();
-    const cartItems=useSelector(store=>store.cart.items)
-    var item;
-    // This is used to filter the products based on the id 
-    if(cartItems)
-        {
-            item= cartItems.filter(item=>item.id==product.id);
-        }
+    
         // This function is used to remove the product from the cart
-    function handleRemove(item)
+    function handleRemove(product)
     {
-        dispatch(RemoveFromCart(item));
+        fetch('http://localhost:5861/api/removeCart', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product),
+
+          }).then((response) => response.json())
+          .then((data) => {
+              console.log(data);
+              })
     }
     // This function is used to add the product to the cart
-    function handleAdd(item)
+    function handleAdd(product)
     {
-        dispatch(AddToCart(item));
+        fetch('http://localhost:5861/api/addCart', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product),
+
+          }).then((response) => response.json())
+          .then((data) => {
+              console.log(data);
+              })
     }
     return (<>
     <div className="cart">
@@ -47,9 +57,9 @@ function CartProduct(props)
         </div>
         <div className="AddToCart_btns" style={{height:"50px"}}>
         {/* This is used to show the quantity of the product */}
-            <button className="minus_btn" onClick={()=>handleRemove(product)} disabled={cartItems.length==0} >-</button>
+            <button className="minus_btn" onClick={()=>handleRemove(product)}  >-</button>
             <span className="Quantity">
-            {cartItems.length>0?item[0].quantity:0}
+            {product.quantity}
             </span>
             <button className="plus_btn" onClick={()=>handleAdd(product)}>+</button>
         </div>

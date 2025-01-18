@@ -1,41 +1,43 @@
 import {  useParams } from "react-router-dom"
-import { useMemo,useRef } from "react";
-import Error from "./Error";
-import useFetch from "../utils/useFetch"
-import Reviews from "./Reviews";
-import { useDispatch } from "react-redux";
-import { AddToCart } from "../utils/CartSlice";
+import { useState,useRef,useEffect } from "react";
+// import Error from "./Error";
+// import useFetch from "../utils/useFetch"
+import Reviews from "./Reviews"; 
+// import { useDispatch } from "react-redux";
+// import { AddToCart } from "../utils/CartSlice";
 
 function ProductDetails()
 {
     // This component is used to display the product details 
     const params=useParams();
-    const dispatch= useDispatch();
     var products=useRef([]);
-    // THis useFetch is used to fetch the products from the API
-    const {data,err,loading}=useFetch("https://dummyjson.com/products");
-    useMemo(()=>{
-        // If the data is present then filter the products based on the id
-        if(data)
-        {
-            const newData=data.products;
-            const item=newData.filter(pro=>pro.id==params.id);
-            products.current=item;
-        }
-    },[data,params.id])
-    // This function is used to add the product to the cart
-    function handleAdd(item)
-    {
-        dispatch(AddToCart(item));
-    }
-    if(err)
-    {
-    <Error/>
-    return 
-    }
-    if(loading)
-    {
-    return <h1>Loading......</h1>
+    const [render,setRender]=useState(false);
+    useEffect(() => {
+            fetch('http://localhost:5861/api/products', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }).then((response) => response.json())
+            .then((data) => {
+                const item=data.filter(pro=> pro._id==params.id);
+                products.current=item;
+                setRender(!render);
+                })
+          }, [params,render]);
+
+    function handleAdd(product){
+        fetch('http://localhost:5861/api/cart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product),
+
+          }).then((response) => response.json())
+          .then((data) => {
+              console.log(data);
+              })
     }
     return (<>
         {
