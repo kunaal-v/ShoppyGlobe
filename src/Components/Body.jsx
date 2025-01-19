@@ -37,7 +37,7 @@ function Body()
         .then((data) => {
             setProducts(data);
             })
-      },[]); 
+      },[accessToken]); 
       if(products==undefined||products.length<1)
       {
         
