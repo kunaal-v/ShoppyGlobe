@@ -11,20 +11,22 @@ function ProductDetails()
     // This component is used to display the product details 
     const params=useParams();
     var products=useRef([]);
+    const accessToken=localStorage.getItem("accessToken");
     const [render,setRender]=useState(false);
     useEffect(() => {
             fetch('http://localhost:5861/api/products', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
+                authorization:`JWT ${accessToken}`
               },
             }).then((response) => response.json())
             .then((data) => {
                 const item=data.filter(pro=> pro._id==params.id);
                 products.current=item;
-                setRender(!render);
+                setRender(!render)
                 })
-          }, [params,render]);
+          },[render,params,accessToken]);
 
     function handleAdd(product){
         fetch('http://localhost:5861/api/cart', {

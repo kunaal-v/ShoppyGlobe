@@ -10,13 +10,13 @@ function Header()
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
-                authurization: `JWT ${accessToken}`,
+                authorization: `JWT ${accessToken}`,
               },
             }).then((response) => response.json())
             .then((data) => {
                 setCartItems(data);
                 })
-          },[]);
+          });
     return(
         <>
             <div className="Header">

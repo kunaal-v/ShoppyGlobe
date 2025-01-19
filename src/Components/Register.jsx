@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 Register.propTypes={
     signedInfunction:PropTypes.func,
 };
 
 function Register(props){
-    
-    const navigate=useNavigate();
     const [isRegister,setIsRegister]=useState(false)
     const [fullname,setFullname]=useState("");
     const [email,setEmail]=useState("");
@@ -18,7 +15,7 @@ function Register(props){
         const response=fetch("http://localhost:5861/api/register",{
             method:"POST",
             headers:{
-                "content-Type":"application/json"
+                "Content-Type":"application/json"
             },
             body: JSON.stringify({
                 fullname:fullname,
@@ -38,11 +35,11 @@ function Register(props){
 
     function handleLogin()
     {
-        console.log(email,password)
         const response=fetch("http://localhost:5861/api/login",{
             method:"POST",
             headers:{
-                "content-Type":"application/json"
+                "Content-Type":"application/json",
+
             },
             body: JSON.stringify({
                 email:email,
@@ -52,10 +49,32 @@ function Register(props){
         const result=response.then((data)=>data.json());
         result.then((data)=>{
             console.log(data)
+            if(data=="user not exist")
+            {
+                return (
+                    <>
+                    {setIsRegister(false)}
+                    {alert("User not registered yet")}
+                    {setEmail("")}
+                    {setPassword("")}
+                    <Register />
+                    </>
+                )
+            }
+            if(data=="invalid password")
+            {
+                return (
+                    <>
+                    {setIsRegister(true)}
+                    {alert("password is invalid, kindly enter the password carefully")}
+                    {setPassword("")}
+                    {/* <Register /> */}
+                    </>
+                )
+            }
             localStorage.setItem("accessToken", data.accessToken);
             props.signedInfunction();
         })
-        navigate("/home");
 
     }
     function signedIn()

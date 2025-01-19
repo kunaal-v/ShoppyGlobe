@@ -40,7 +40,7 @@ export function logIn(req,res){
         const validatePassword=bcrypt.compareSync(password,data.password);
         if(!validatePassword)
         {
-            return res.status(403).json({message:"invalid password"})
+            return res.status(403).json("invalid password")
         }
         const token=jwt.sign({id:data._id},"mySecretKey231217",{expiresIn:"15m"});
         res.send({

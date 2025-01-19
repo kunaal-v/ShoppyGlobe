@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 function Cart()
 {
     // This component is used to display the products in the cart
-    const [isLoggedIn,setIsloggedIn]=useState(false);
     const [cartItems,setCartItems]=useState([]);
     const accessToken=localStorage.getItem("accessToken")
     useEffect(() => {
@@ -12,11 +11,10 @@ function Cart()
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            authurization: `JWT ${accessToken}`
+            authorization: `JWT ${accessToken}`
           },
         }).then((response) => response.json())
         .then((data) => {
-          setIsloggedIn(true);
             setCartItems(data);
             })
       });
@@ -34,8 +32,7 @@ function Cart()
               })
     }
     // If the cart is empty then show the empty cart message
-    if(isLoggedIn)
-    {
+    
       if(cartItems.length==0)
         {
             return(<>
@@ -52,12 +49,7 @@ function Cart()
     
             </div>
         </>)
-    }
-    else{
-      return(<>
-      <div> User need to logIn before accesing to the cart</div>
-      </>)
-    }
+    
     
     
 }

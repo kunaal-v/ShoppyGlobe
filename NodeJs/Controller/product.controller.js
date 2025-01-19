@@ -4,23 +4,22 @@ export function getProducts(req, res) {
         if(!data) {
            return res.status(404).json({message:"Product not found"});
         }
-        res.send(data);
+        return res.send(data);
     }).catch((err) => {
-        res.json({message:err.message});
+        res.send({message:err.message});
     });
 }
-export function findwithId(req, res, next) {
-    const id = req.params.id;
-    productModel.findById(id).then((data) => {
-        if(!data) {
-            return res.status(404).json({message:"Product not found"});
-        }
-        req.product = data;
-        next();
-    }).catch((err) => {
-        res.json({message:err.message});
-    });     
-}
+// export function findwithId(req, res) {
+//     const id = req.params.id;
+//     productModel.findById(id).then((data) => {
+//         if(!data) {
+//             return res.status(404).json({message:"Product not found"});
+//         }
+//         return req.product = data;
+//     }).catch((err) => {
+//         return res.json({message:err.message});
+//     });     
+// }
 export function createProduct(req, res) {
     const { id,category, description, discountPercentage, stock,brand,availabilityStatus,images, price, rating, reviews, tags, title } = req.body;
     const newProduct = new productModel({
