@@ -6,6 +6,7 @@ function Cart()
     // This component is used to display the products in the cart
     const [cartItems,setCartItems]=useState([]);
     const accessToken=localStorage.getItem("accessToken")
+    //The useEffect is used to fetch all the product from the cart collection if the user is logged in
     useEffect(() => {
         fetch('http://localhost:5861/api/cartProducts', {
           method: 'GET',

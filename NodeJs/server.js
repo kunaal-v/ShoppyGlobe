@@ -4,6 +4,7 @@ import { routes } from "./routes/products.routes.js";
 import cors from "cors";
 import { cartRoutes } from "./Routes/cart.routes.js";
 import { registerRoutes } from "./Routes/register.routes.js";
+//created an express app
 const app = express();
 app.listen(5861, () => {
     console.log("listening to port 5861");
@@ -11,9 +12,11 @@ app.listen(5861, () => {
 // Middleware to parse JSON
 app.use(express.json());
 app.use(cors());
+//pass the app to all the routes
 routes(app);
 cartRoutes(app);
 registerRoutes(app);
+//connect with mongoDB
 mongoose.connect(
     "mongodb+srv://ShoppyGlobe:Kunal231217@cluster0.bqoca.mongodb.net/"
     );

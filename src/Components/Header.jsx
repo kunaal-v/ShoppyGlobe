@@ -5,6 +5,7 @@ function Header()
     // This component is used to display the header of the application
     const [cartItems,setCartItems]=useState([]);
     const accessToken=localStorage.getItem("accessToken");
+    //this useEffect is used to fetch the cart products form cart collection if the user is logged in
         useEffect(() => {
             fetch('http://localhost:5861/api/cartProducts', {
               method: 'GET',

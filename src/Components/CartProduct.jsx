@@ -11,7 +11,7 @@ function CartProduct(props)
     const discount=product.discountPercentage;
     const discountPrice=(price-(price*discount/100))
     
-        // This function is used to remove the product from the cart
+        // This function is used to decrease the quantity of the product from the cart
     function handleRemove(product)
     {
         fetch('http://localhost:5861/api/removeCart', {
@@ -26,7 +26,7 @@ function CartProduct(props)
               console.log(data);
               })
     }
-    // This function is used to add the product to the cart
+    // This function is used to increase the quantity of the product to the cart
     function handleAdd(product)
     {
         fetch('http://localhost:5861/api/addCart', {

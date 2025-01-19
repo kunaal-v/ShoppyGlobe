@@ -3,13 +3,13 @@ import { useState } from 'react';
 Register.propTypes={
     signedInfunction:PropTypes.func,
 };
-
+// this component is used to register and login the user 
 function Register(props){
     const [isRegister,setIsRegister]=useState(false)
     const [fullname,setFullname]=useState("");
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
-
+// this function is used to register and user and save the data of the user to users collection
     function handleRegister()
     {
         const response=fetch("http://localhost:5861/api/register",{
@@ -32,7 +32,7 @@ function Register(props){
         })
         
     }
-
+// this function is used to login the user is email and password is correct
     function handleLogin()
     {
         const response=fetch("http://localhost:5861/api/login",{
@@ -48,7 +48,6 @@ function Register(props){
         });
         const result=response.then((data)=>data.json());
         result.then((data)=>{
-            console.log(data)
             if(data=="user not exist")
             {
                 return (
@@ -77,6 +76,7 @@ function Register(props){
         })
 
     }
+    // this function will set the isRegister to ture and user will see the login inputs 
     function signedIn()
     {
         setIsRegister(true);

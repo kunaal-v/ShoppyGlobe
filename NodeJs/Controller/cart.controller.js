@@ -1,5 +1,5 @@
 import cartModel from "../Model/cart.model.js";
-
+// this function is fetch all the cart products form the database
 export function fetchCart(req, res) {
     cartModel.find()
         .then(products => {
@@ -10,20 +10,19 @@ export function fetchCart(req, res) {
         });
 }
 
+// this function is to decrease the quantity of the cart item and if the quantity is 0 the remove the product form the database(i.e. cart)
 export function removeFromCart(req, res) {
     const { id } = req.body;
     cartModel.findOne({ id })
         .then(product => {
             if (product) {
-                // Product exists, increment quantity by 1
                 cartModel.findByIdAndUpdate(
-                    product._id,  // Use MongoDB's default _id for the update
+                    product._id, 
                     { $inc: { quantity: -1 } },  
-                    { new: true }  // Return the updated product
+                    { new: true } 
                 )
                     .then(updatedProduct => {
                         if(updatedProduct.quantity === 0) {
-                            // If quantity is 0, remove the product from the cart
                             cartModel.findByIdAndDelete(updatedProduct._id)
                                 .then(() => {
                                     return res.status(200);
@@ -32,7 +31,7 @@ export function removeFromCart(req, res) {
                                     return res.status(500).json({ message: "Error removing product from cart", error: err.message });
                                 });
                         }
-                        return res.json("quantity decreased by 1");  // Send back the updated product
+                        return res.json("quantity decreased by 1"); 
                     })
                     .catch(err => {
                         return res.status(500).json({ message: "Error updating product", error: err.message });
@@ -42,23 +41,23 @@ export function removeFromCart(req, res) {
             return res.status(500).json({ message: "Error finding product", error: err.message });
             });
 }
-
+// this function is to increase the quantity of the product form the cart
 export function updateCart(req, res) {
     const { id } = req.body;
     cartModel.findOne({ id })
         .then(product => {
             if (product) {
-                // Product exists, increment quantity by 1
+               
                 cartModel.findByIdAndUpdate(
-                    product._id,  // Use MongoDB's default _id for the update
+                    product._id,  
                     { $inc: { quantity: 1 } },  
-                    { new: true }  // Return the updated product
+                    { new: true }  
                 )
                     .then(updatedProduct => {
                         if (!updatedProduct) {
                             return res.status(400).json({ message: "Product not updated in cart" });
                         }
-                        return res.status(200).json("quantity increased by 1") // Send back the updated product
+                        return res.status(200).json("quantity increased by 1") 
                     })
                     .catch(err => {
                         return res.status(500).json({ message: "Error updating product", error: err.message });
@@ -69,11 +68,10 @@ export function updateCart(req, res) {
             return res.status(500).json({ message: "Error finding product", error: err.message });
         });
 }
-    
+// this function is to add the new item to the database(i.e. cart)
 export function addToCart(req, res) 
 {
     const { id, title, description, category, price, discountPercentage, rating, stock, tags, brand, availabilityStatus, reviews, images } = req.body;
-    // Product doesn't exist in the cart, create a new product
     cartModel.findOne({ id }).then(product => {
     if (product)
     {
@@ -94,10 +92,10 @@ export function addToCart(req, res)
             availabilityStatus,
             reviews,
             images,
-            quantity: 1,  // New product starts with quantity 1
+            quantity: 1,  
         });
 
-        // Save the new product
+        
         newProduct.save()
             .then(savedProduct => {
                 if (!savedProduct) {
@@ -114,7 +112,7 @@ export function addToCart(req, res)
     });
             
 }
-
+// this function is to clear the cart (i.e. empty the cart) means empty the cart collection from the database
 export function clearCart(req,res){
     cartModel.deleteMany().then(()=>{res.json("cart has been cleared and is empty now.")}).catch(err=>{return res.status(500).json({message:"Error clearing cart",error:err.message})});
 }

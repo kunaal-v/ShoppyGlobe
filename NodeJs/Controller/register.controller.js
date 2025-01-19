@@ -1,7 +1,7 @@
 import registerModel from "../Model/register.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+// this function is to register the user to the database
 export function registerUser(req,res){
     const {fullname,email,password}=req.body;
     registerModel.findOne({email}).then((data)=>{
@@ -28,7 +28,7 @@ export function registerUser(req,res){
     }).catch(err=>res.status(500).json({message:err.message}));
     
 }
-
+//this function is to login the user to website if the user is register and its email, password  is correct and token is verified.
 export function logIn(req,res){
     const {email,password}=req.body;
     registerModel.findOne({email}).then((data)=>{

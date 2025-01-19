@@ -13,6 +13,7 @@ function ProductDetails()
     var products=useRef([]);
     const accessToken=localStorage.getItem("accessToken");
     const [render,setRender]=useState(false);
+    // this useEffect is used to fetch the products form the products collection is the user is logged in to show product details
     useEffect(() => {
             fetch('http://localhost:5861/api/products', {
               method: 'GET',
@@ -28,6 +29,7 @@ function ProductDetails()
                 })
           },[render,params,accessToken]);
 
+          // this function is used to add the product to the carts collection 
     function handleAdd(product){
         fetch('http://localhost:5861/api/cart', {
             method: 'POST',

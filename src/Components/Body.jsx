@@ -8,8 +8,7 @@ import { useEffect, useState } from 'react';
 
 function Body()
 {
-    // This component is used to display the products
-    // This function is used to add the product to the cart
+    // this handle cart function is to add the item to the cart
     function handleCart(product)
     {
         fetch('http://localhost:5861/api/cart', {
@@ -22,10 +21,9 @@ function Body()
           })
           
     }  
-    // This useFetch is used to fetch the products from the API
     const [products,setProducts]=useState([]);
     const accessToken=localStorage.getItem("accessToken");
-    // This useEffect is used to set the products based on the data received
+    // This useEffect is used to set the products based on the data received if the user is logged in
     useEffect(() => {
         fetch('http://localhost:5861/api/products', {
           method: 'GET',

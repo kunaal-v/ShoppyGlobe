@@ -14,6 +14,7 @@ const [isSignedIn,setIsSignedIn]=useState(false);
 function handleSignedInUser(){
   setIsSignedIn(true);
 }
+// if the user is logged in it will show home and other componets else it will show register component
 if(isSignedIn)
 {
   return (

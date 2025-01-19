@@ -1,4 +1,5 @@
 import productModel from "../Model/products.model.js";
+// this function is to fetch all the products from the database
 export function getProducts(req, res) {
     productModel.find().then((data) => {
         if(!data) {
@@ -9,17 +10,7 @@ export function getProducts(req, res) {
         res.send({message:err.message});
     });
 }
-// export function findwithId(req, res) {
-//     const id = req.params.id;
-//     productModel.findById(id).then((data) => {
-//         if(!data) {
-//             return res.status(404).json({message:"Product not found"});
-//         }
-//         return req.product = data;
-//     }).catch((err) => {
-//         return res.json({message:err.message});
-//     });     
-// }
+// this function is to create or add new product to the database
 export function createProduct(req, res) {
     const { id,category, description, discountPercentage, stock,brand,availabilityStatus,images, price, rating, reviews, tags, title } = req.body;
     const newProduct = new productModel({
