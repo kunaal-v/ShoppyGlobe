@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom"
-import { useState,useEffect } from "react";
-function Header()
+import { useState,useEffect, useRef } from "react";
+import PropTypes from 'prop-types';;
+Header.propTypes={
+    signedInfunction:PropTypes.func,
+};
+function Header(props)
 {
     // This component is used to display the header of the application
     const [cartItems,setCartItems]=useState([]);
+    const [isSignedIn,setIsSignedIn]=useState(true);
+    const render=useRef(null);
     const accessToken=localStorage.getItem("accessToken");
     //this useEffect is used to fetch the cart products form cart collection if the user is logged in
         useEffect(() => {
@@ -15,9 +21,25 @@ function Header()
               },
             }).then((response) => response.json())
             .then((data) => {
-                setCartItems(data);
+                if(isSignedIn&&render==null)
+                {
+                    if(data=="Token has expired")
+                    {
+                    alert("your access to the website has been expired, Kindely refresh the page and login again");
+                    props.signedInfunction();
+                    setIsSignedIn(false);
+                    render.current=true;
+                    }
+                    setCartItems(data);
+                }
                 })
           });
+          if(!isSignedIn&&render.current==true)
+            {
+              return(<>
+                <h1>Session expired LogIn again..</h1>
+                </>);
+            }
     return(
         <>
             <div className="Header">

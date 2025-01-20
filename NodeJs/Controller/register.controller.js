@@ -42,7 +42,7 @@ export function logIn(req,res){
         {
             return res.status(403).json("invalid password")
         }
-        const token=jwt.sign({id:data._id},"mySecretKey231217",{expiresIn:"15m"});
+        const token=jwt.sign({id:data._id},"mySecretKey231217",{expiresIn:"1m"});
         res.send({
             user:{
                 fullname:data.fullname,

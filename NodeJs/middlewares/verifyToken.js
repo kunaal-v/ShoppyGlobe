@@ -16,7 +16,7 @@ export function verifyToken(req, res, next) {
             if (err) {
                 // Handle specific JWT errors (e.g., token expired)
                 if (err.name === "TokenExpiredError") {
-                    return res.status(401).json({ message: "Token has expired" });
+                    return res.status(401).json( "Token has expired" );
                 }
                 return res.status(403).json({ message: err.message });
             }

@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 // import useFetch from '../utils/useFetch';
 // import Error from './Error';
 import Product from './Product';
-import { useEffect, useState } from 'react';
-
-
+import { useEffect, useState, useRef } from 'react';
 
 function Body()
 {
@@ -21,7 +19,9 @@ function Body()
           })
           
     }  
+    const [isSignedIn,setIsSignedIn]=useState(true);
     const [products,setProducts]=useState([]);
+    const render=useRef(null);
     const accessToken=localStorage.getItem("accessToken");
     // This useEffect is used to set the products based on the data received if the user is logged in
     useEffect(() => {
@@ -33,9 +33,25 @@ function Body()
           },
         }).then((response) => response.json())
         .then((data) => {
-            setProducts(data);
+          if(isSignedIn&&render.current==null)
+            {
+              if(data=="Token has expired")
+              {
+              alert("your access to the website has been expired, Kindely refresh the page and login again");
+              
+              setIsSignedIn(false);
+              render.current=true;
+              }
+              setProducts(data);
+            }
             })
-      },[accessToken]); 
+      }); 
+      if(!isSignedIn&&render.current==true)
+      {
+        return(<>
+          <h1>Session expired, refresh the page and LogIn again..</h1>
+          </>);
+      }
       if(products==undefined||products.length<1)
       {
         

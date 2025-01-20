@@ -14,13 +14,17 @@ const [isSignedIn,setIsSignedIn]=useState(false);
 function handleSignedInUser(){
   setIsSignedIn(true);
 }
+function setUserFalse()
+{
+  setIsSignedIn(false)
+}
 // if the user is logged in it will show home and other componets else it will show register component
 if(isSignedIn)
 {
   return (
     <>
       <Provider store={appStore}>
-        <Header/>
+        <Header signedInfunction={setUserFalse}/>
         <Outlet/>
       </Provider>
     </>

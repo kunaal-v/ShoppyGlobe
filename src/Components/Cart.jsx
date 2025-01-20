@@ -1,24 +1,13 @@
 import CartProduct from "./CartProduct";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Cart()
 {
     // This component is used to display the products in the cart
     const [cartItems,setCartItems]=useState([]);
+    const [isSignedIn,setIsSignedIn]=useState(true);
+    const render=useRef(null);
     const accessToken=localStorage.getItem("accessToken")
-    //The useEffect is used to fetch all the product from the cart collection if the user is logged in
-    useEffect(() => {
-        fetch('http://localhost:5861/api/cartProducts', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `JWT ${accessToken}`
-          },
-        }).then((response) => response.json())
-        .then((data) => {
-            setCartItems(data);
-            })
-      });
     // This function is used to clear the cart
     function handleClearCart()
     {
@@ -32,8 +21,37 @@ function Cart()
               console.log(data);
               })
     }
-    // If the cart is empty then show the empty cart message
+    //The useEffect is used to fetch all the product from the cart collection if the user is logged in
+    useEffect(() => {
+        fetch('http://localhost:5861/api/cartProducts', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `JWT ${accessToken}`
+          },
+        }).then((response) => response.json())
+        .then((data) => {
+          if(isSignedIn&&render.current==null)
+            {
+              if(data=="Token has expired")
+              {
+              alert("your access to the website has been expired, Kindely refresh the page and login again");
+              
+              setIsSignedIn(false);
+              render.current=true;
+              }
+              setCartItems(data);
+            }
+            })
+      }); 
+      if(!isSignedIn&&render.current==true)
+      {
+        return(<>
+          <h1>Session expired LogIn again..</h1>
+          </>);
+      }
     
+    // If the cart is empty then show the empty cart message
       if(cartItems.length==0)
         {
             return(<>

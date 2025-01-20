@@ -35,6 +35,7 @@ function Register(props){
 // this function is used to login the user is email and password is correct
     function handleLogin()
     {
+        setIsRegister(true);
         const response=fetch("http://localhost:5861/api/login",{
             method:"POST",
             headers:{
