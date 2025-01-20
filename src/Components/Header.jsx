@@ -23,6 +23,7 @@ function Header(props)
             .then((data) => {
                 if(isSignedIn&&render==null)
                 {
+                    
                     if(data=="Token has expired")
                     {
                     alert("your access to the website has been expired, Kindely refresh the page and login again");
@@ -30,8 +31,9 @@ function Header(props)
                     setIsSignedIn(false);
                     render.current=true;
                     }
-                    setCartItems(data);
+                    
                 }
+                setCartItems(data);
                 })
           });
           if(!isSignedIn&&render.current==true)
