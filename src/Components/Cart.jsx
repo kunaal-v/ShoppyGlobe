@@ -47,7 +47,7 @@ function Cart()
       if(!isSignedIn&&render.current==true)
       {
         return(<>
-          <h1>Session expired LogIn again..</h1>
+          <h1>Session expired, refresh the page and LogIn again..</h1>
           </>);
       }
     
